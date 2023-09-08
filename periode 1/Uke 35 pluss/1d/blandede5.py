@@ -1,4 +1,6 @@
-board = [["" for _ in range(3)] for _ in range(3)]
+import random
+
+board = [["" for _ in range(3)] for _ in range(3)]  # lager et 3*3 brett
 
 Coordinate = tuple[int, int]
 
@@ -7,6 +9,14 @@ print(
 )
 
 player_turn = "x"
+vs_machine = None
+while vs_machine is None:
+    try:
+        vs_machine_prompt = input("Vil du spille singleplayer? (ja/nei): ").lower()
+        assert vs_machine_prompt in {"ja", "nei"}
+        vs_machine = True if vs_machine_prompt == "ja" else False
+    except AssertionError:
+        print("ugyldig svar")
 
 
 def board_no_space() -> bool:
@@ -81,16 +91,26 @@ def print_board():
 
 while True:
     if player_won():
+        print_board()
         flip_player_turn()
         print(f"{player_turn} spilleren vant!")
         exit()
     if board_no_space():
+        print_board()
         print("uavgjort!")
         exit()
 
-    print(f"det er {player_turn} sin tur!")
-    row, col = get_coordinate()
-
-    board[row][col] = player_turn
+    if vs_machine and player_turn == "o":
+        fields = [(row, col) for row in range(3) for col in range(3)]
+        random.shuffle(fields)
+        for row, col in fields:
+            if board[row][col]:
+                continue
+            board[row][col] = "o"
+            break
+    else:
+        print(f"det er {player_turn} sin tur!")
+        print_board()
+        row, col = get_coordinate()
+        board[row][col] = player_turn
     flip_player_turn()
-    print_board()
