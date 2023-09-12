@@ -48,6 +48,11 @@ def intervals_overlap(
         Whether the intervals overlap
     """
 
+    # Given two intervals:
+    # a----b
+    #   c----d
+    # Checks whether one boundary is within the other range, for all boundaries in the two intervals.
+
     if include_border:
         return (
             lower_1 <= lower_2 <= upper_1
@@ -97,6 +102,8 @@ def rectangles_overlap(
     OtherError
         when an other error
     """
+
+    # Check whether the x-ranges AND the y-ranges of the rectangles overlap
 
     return intervals_overlap(
         bottom_left_1.x,
