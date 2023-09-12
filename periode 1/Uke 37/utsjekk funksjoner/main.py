@@ -119,17 +119,71 @@ def rectangles_overlap(
 
 
 def unit_test_intervals_overlap() -> None:
+    # a---b
+    #   c---d
+    # => True
     assert intervals_overlap(1, 3, 2, 4)
+
+    # a-------b
+    #   c---d
+    # => True
     assert intervals_overlap(1, 4, 2, 3)
+
+    #   a---b
+    # c---d
+    # => True
     assert intervals_overlap(2, 4, 1, 3)
+
+    # a---b
+    #       c---d
+    # => False
     assert not intervals_overlap(1, 2, 3, 4)
 
 
 def unit_test_rectangles_overlap() -> None:
+    #    |---|
+    # |--|   |
+    # |  |---|
+    # |    |
+    # |----|
+    # => True
     assert rectangles_overlap(Point(1, 1), Point(3, 3), Point(2, 2), Point(4, 4))
+
+    #    |--|
+    # |--|  |--|
+    # |  |  |  |
+    # |--|  |--|
+    #    |--|
+    # => True
     assert rectangles_overlap(Point(1, 2), Point(4, 3), Point(2, 1), Point(3, 4))
+
+    # |------------|
+    # |            |
+    # |   |---|    |
+    # |   |   |    |
+    # |   |---|    |
+    # |            |
+    # |------------|
+    # => True
     assert rectangles_overlap(Point(1, 1), Point(4, 4), Point(2, 2), Point(3, 3))
+
+    # |--|
+    # |--|
+    # |--|
+    #
+    # |----|
+    # |    |
+    # |----|
+    # => False
     assert not rectangles_overlap(Point(1, 1), Point(4, 2), Point(2, 3), Point(3, 4))
+
+    #      |--|
+    # |----|  |
+    # |    |  |
+    # |    |  |
+    # |----|  |
+    #      |--|
+    # => False
     assert not rectangles_overlap(Point(1, 2), Point(2, 3), Point(2, 1), Point(3, 4))
 
 
