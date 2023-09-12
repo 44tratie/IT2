@@ -1,4 +1,4 @@
-import numbers
+Numeric = int | float
 
 
 class Point:
@@ -7,22 +7,22 @@ class Point:
 
     Attributes
     ----------
-    x : numbers.Real
+    x : Numeric
         x-position of the point
-    y : numbers.Real
+    y : Numeric
         y-position of the point
     """
 
-    def __init__(self, x: numbers.Real, y: numbers.Real) -> None:
+    def __init__(self, x: Numeric, y: Numeric) -> None:
         self.x = x
         self.y = y
 
 
 def intervals_overlap(
-    lower_1: numbers.Real,
-    upper_1: numbers.Real,
-    lower_2: numbers.Real,
-    upper_2: numbers.Real,
+    lower_1: Numeric,
+    upper_1: Numeric,
+    lower_2: Numeric,
+    upper_2: Numeric,
     include_border: bool = False,
 ) -> bool:
     """
@@ -31,13 +31,13 @@ def intervals_overlap(
 
     Parameters
     ----------
-    lower_1 : numbers.Real
+    lower_1 : Numeric
         The lower bound of the first interval
-    upper_1 : numbers.Real
+    upper_1 : Numeric
         The upper bound of the first interval
-    lower_2 : numbers.Real
+    lower_2 : Numeric
         The lower bound of the second interval
-    upper_2 : numbers.Real
+    upper_2 : Numeric
         The upper bound of the second interval
     include_border : bool, optional
         Whether bordering ranges should count as overlap, by default False
