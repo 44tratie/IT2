@@ -84,13 +84,6 @@ def rectangles_overlap(
     -------
     bool
         Whether the rectangles overlap
-
-    Raises
-    ------
-    KeyError
-        when a key error
-    OtherError
-        when an other error
     """
 
     # Check whether the x-ranges AND the y-ranges of the rectangles overlap
