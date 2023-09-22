@@ -14,7 +14,7 @@ def oppskrift_fra_mel(mengde: Tall) -> Oppskrift:
 
 
 def oppskrift_fra_smoer(mengde: Tall) -> Oppskrift:
-    return {"sukker": mengde / 3, "mel": mengde / 2, "smør": mengde}
+    return {"sukker": mengde / 3, "mel": mengde / 3 * 2, "smør": mengde}
 
 
 def skriv_oppskrift(sukker: Mengde, mel: Mengde, smør: Mengde) -> None:
