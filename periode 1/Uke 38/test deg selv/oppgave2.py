@@ -1,5 +1,7 @@
 from string import ascii_letters
 
+LETTERS = set(ascii_letters)
+
 
 def be_om_alder() -> int:
     alder = None
@@ -16,7 +18,7 @@ def be_om_bokstav() -> str:
     while bokstav is None:
         try:
             bokstav = input("Skriv en bokstav: ")
-            assert bokstav in ascii_letters
+            assert bokstav in LETTERS
         except AssertionError:
             print("du skrev ikke en bokstav")
             bokstav = None
