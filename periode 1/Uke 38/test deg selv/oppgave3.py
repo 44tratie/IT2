@@ -46,5 +46,22 @@ def main() -> None:
     print(finn_butikk_2(handleliste, prisliste))
 
 
+def unit_tests() -> None:
+    print("----------------------")
+    print("unit tests starter her")
+    prislister = {
+        "1": {"a": 0, "b": 2, "c": 4, "d": 6},
+        "2": {"a": 1, "b": 1, "c": 1, "d": 100}
+    }
+    assert finn_butikk_2(["a"], prislister) == "1"
+    assert finn_butikk_2(["b"], prislister) == "2"
+    assert finn_butikk_2(["c"], prislister) == "2"
+    assert finn_butikk_2(["d"], prislister) == "1"
+    assert finn_butikk_2(["b", "c"], prislister) == "2"
+    assert finn_butikk_2(["a", "b", "c", "d"], prislister) == "1"
+
+    print("alle unit testsa passerte!")
+
 if __name__ == "__main__":
     main()
+    unit_tests()
