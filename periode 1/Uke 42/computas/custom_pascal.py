@@ -8,5 +8,3 @@ for row_i in range(1, 51):
     rows[-1].append(rows[-2][-1])
 
 print(rows[49][39])
-
-"a".split()
