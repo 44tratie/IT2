@@ -1,0 +1,49 @@
+@startuml Bokhandelmodell
+
+class Bok {
+    tittel: str
+    isbn_nummer: str
+    utgivelsesår: int
+    baksidetekst: str
+}
+
+class SkjønnlitterærBok {
+    sjanger: Sjanger
+}
+
+enum Sjanger {
+    spenning
+    action
+    drama
+}
+
+class Fagbok {
+    fagområde: Fagområde
+}
+
+enum Fagområde {
+    matematikk
+    fysikk
+    kjemi
+    it
+}
+
+class Forlag {
+    navn: str
+}
+
+class Forfatter {
+    navn: str
+}
+
+Fagbok --|> Bok
+Fagområde --+ Fagbok
+
+SkjønnlitterærBok --|> Bok
+Sjanger --+ SkjønnlitterærBok
+
+Bok "0..*" -- "1..*" Forfatter
+Bok "0..*" -- "1" Forlag
+
+
+@enduml

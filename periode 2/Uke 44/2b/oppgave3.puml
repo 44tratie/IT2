@@ -1,0 +1,45 @@
+@startuml Fotballklubbmodell
+class Person {
+    navn: str
+}
+
+class FotballKlubb {
+    navn: str
+}
+
+class FotballLag {
+    navn: str
+}
+
+class Trener {
+    spesialisering: TrenerType
+}
+
+class Spiller {
+    posisjon: Posisjon
+}
+
+enum Posisjon {
+    spiss
+    midtstopper
+}
+
+enum TrenerType {
+    hovedtrener
+    keepertrener
+}
+
+Person <|-- Spiller
+Person <|-- Trener
+
+Spiller "0..*" -- "1" FotballLag
+Spiller "0..*" -- "1" FotballKlubb
+Trener "0..*" -- "1" FotballKlubb
+Trener "0..*" -- "1..*" FotballLag
+
+FotballLag "1..*" -- "1" FotballKlubb
+
+Posisjon --+ Spiller
+TrenerType --+ Trener
+
+@enduml

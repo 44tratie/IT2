@@ -1,0 +1,15 @@
+@startuml Spillmodell
+
+class Figur {
+    sprite_path: str
+    --
+    move()
+}
+
+class Spiller
+class Skurk
+
+Spiller --|> Figur
+Skurk --|> Figur
+
+@enduml
