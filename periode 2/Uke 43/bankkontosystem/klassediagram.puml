@@ -1,0 +1,40 @@
+@startuml
+
+class Bankkonto {
+    kontonummer: str
+    saldo: float
+    --
+    + innskudd(float) -> bool
+    + uttak(float) -> bool
+    # har_nok_saldo(float) -> bool
+    # vis_ny_saldo() -> None
+    # vis_saldo() -> None
+    + __str__() -> str
+}
+
+class Sparekonto {
+    maks_antall_uttak: int
+    --
+    + uttak(float) -> bool
+    + reset_antall_innskudd() -> None
+}
+
+class BSU {
+    maks_innskudd: float
+    --
+    + innskudd(float) -> bool
+}
+
+class Person {
+    fornavn: str
+    etternavn: str
+    telefonnummer: str
+    landskode: str
+}
+
+Person "1" -- "0..*" Bankkonto: eier >
+
+Bankkonto <|-- Sparekonto
+Bankkonto <|-- BSU
+
+@enduml

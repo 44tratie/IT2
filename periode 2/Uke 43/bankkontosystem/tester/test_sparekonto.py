@@ -9,7 +9,7 @@ def test_sparekonto() -> None:
     konto.uttak(333)
     konto.uttak(333)
     konto.uttak(1)
-    konto._reset_antall_uttak()
+    konto.reset_antall_uttak()
     konto.uttak(1)
     konto.innskudd(1000)
     konto.uttak(1000)

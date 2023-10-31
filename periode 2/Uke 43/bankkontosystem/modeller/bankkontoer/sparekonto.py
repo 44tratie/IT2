@@ -13,7 +13,7 @@ class Sparekonto(Bankkonto):
     ) -> None:
         super().__init__(eier, kontonummer, start_saldo)
         self.maks_antall_uttak = maks_antall_uttak
-        self._reset_antall_uttak()
+        self.reset_antall_uttak()
 
     def uttak(self, beløp: float) -> bool:
         if self.gjenværende_uttak <= 0:
@@ -27,5 +27,5 @@ class Sparekonto(Bankkonto):
 
         return False
 
-    def _reset_antall_uttak(self) -> None:
+    def reset_antall_uttak(self) -> None:
         self.gjenværende_uttak = self.maks_antall_uttak
