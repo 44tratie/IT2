@@ -1,15 +1,17 @@
+from modeller.person import Person
+
 from .bankkonto import Bankkonto
 
 
 class Sparekonto(Bankkonto):
     def __init__(
         self,
-        eiernavn: str,
+        eier: Person,
         kontonummer: str,
         maks_antall_uttak: int,
         start_saldo: float = 0,
     ) -> None:
-        super().__init__(eiernavn, kontonummer, start_saldo)
+        super().__init__(eier, kontonummer, start_saldo)
         self.maks_antall_uttak = maks_antall_uttak
         self._reset_antall_uttak()
 

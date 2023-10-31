@@ -1,8 +1,10 @@
-from modeller.sparekonto import Sparekonto
+from modeller.bankkontoer.sparekonto import Sparekonto
+from modeller.person import Person
 
 
 def test_sparekonto() -> None:
-    konto = Sparekonto("Tien Tran", "1234,", 3, start_saldo=1000)
+    person = Person("Tien", "Tran", "98765432", "+47")
+    konto = Sparekonto(person, "1234,", 3, start_saldo=1000)
     konto.uttak(333)
     konto.uttak(333)
     konto.uttak(333)

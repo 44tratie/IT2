@@ -1,3 +1,4 @@
+from modeller.person import Person
 from verktøy import bruker_godkjennelse
 
 from .bankkonto import Bankkonto
@@ -5,9 +6,13 @@ from .bankkonto import Bankkonto
 
 class BSU(Bankkonto):
     def __init__(
-        self, eiernavn: str, kontonummer: str, maks_saldo: float, start_saldo: float = 0
+        self,
+        eier: Person,
+        kontonummer: str,
+        maks_saldo: float,
+        start_saldo: float = 0,
     ) -> None:
-        super().__init__(eiernavn, kontonummer, start_saldo)
+        super().__init__(eier, kontonummer, start_saldo)
         self.maks_saldo = maks_saldo
 
     def innskudd(self, beløp: float) -> bool:

@@ -1,6 +1,9 @@
+from modeller.person import Person
+
+
 class Bankkonto:
-    def __init__(self, eiernavn: str, kontonummer: str, start_saldo: float = 0) -> None:
-        self.eiernavn = eiernavn
+    def __init__(self, eier: Person, kontonummer: str, start_saldo: float = 0) -> None:
+        self.eier = eier
         self.kontonummer = kontonummer
         self.saldo = start_saldo
 
@@ -39,6 +42,7 @@ class Bankkonto:
 
     def __str__(self) -> str:
         return f"""Konto:
-\t{"Eier":<15}: {self.eiernavn}
+\t{"Eier":<15}: {self.eier.navn}
+\t{"Telefonnummer":<15}: {self.eier.internasjonal_nummer}
 \t{"Kontonummer":<15}: {self.kontonummer}
 \t{"Saldo":<15}: {self.saldo:.2f}\n"""
