@@ -11,6 +11,11 @@ class Person:
     telefonnummer: str
     landskode: Landskode = Landskode.NO
 
+    def __post_init__(self) -> None:
+        self.fornavn = self.fornavn.strip().title()
+        self.etternavn = self.etternavn.strip().title()
+        self.telefonnummer = self.telefonnummer.strip()
+
     @cached_property
     def navn(self) -> str:
         return f"{self.fornavn} {self.etternavn}"
