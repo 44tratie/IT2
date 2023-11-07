@@ -1,11 +1,13 @@
 import traceback
 
 from colorama import Back, Fore, Style
+
 from tester.test_bankkonto import test_bankkonto
 from tester.test_bsu import test_bsu
+from tester.test_kredittkonto import test_kredittkonto
 from tester.test_sparekonto import test_sparekonto
 
-tester = test_sparekonto, test_bankkonto, test_bsu
+tester = test_sparekonto, test_bankkonto, test_bsu, test_kredittkonto
 
 
 def kjør_tester() -> None:
