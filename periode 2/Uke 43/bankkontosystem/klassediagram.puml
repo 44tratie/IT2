@@ -4,6 +4,7 @@ class Bankkonto {
     kontonummer: str
     saldo: float
     --
+    + fra_csv() -> Self
     + innskudd(float) -> bool
     + uttak(float) -> bool
     # har_nok_saldo(float) -> bool
@@ -25,6 +26,12 @@ class BSU {
     + innskudd(float) -> bool
 }
 
+class Kredittkonto {
+    min_saldo: float
+    --
+    # har_nok_saldo(float) -> bool
+}
+
 class Person {
     fornavn: str
     etternavn: str
@@ -36,5 +43,6 @@ Person "1" -- "0..*" Bankkonto: eier >
 
 Bankkonto <|-- Sparekonto
 Bankkonto <|-- BSU
+Bankkonto <|-- Kredittkonto
 
 @enduml
