@@ -1,0 +1,57 @@
+@startuml
+
+class Idrettslag {
+    # gutter: list[Gutt]
+    # jenter: list[Jente]
+    --
+    + trekk_to_lag: (antall_gutter: int, antall_jenter: int) -> tuple[Lag, Lag]
+    + vis_lag: () -> None
+    # kan_lage_to_lag: (antall_gutter: int, antall_jenter: int) -> bool
+}
+
+class Lag {
+    # spillere: list[Person]
+    --
+    + vis_spillere: () -> None
+}
+
+class Stafettkonkurranse {
+    # lag: list[Lag]
+    # dommere: list[Person]
+    --
+    + gjør_løp: () -> list[float]
+    + tolk_resultat: (list[float]) -> None
+}
+
+class Person {
+    # min_tid: float
+    # maks_tid: float
+    + eksplisitt_løpetid: float = None
+    --
+    + løp: () -> float
+}
+
+class Gutt {
+    # min_tid: float
+    # maks_tid: float
+}
+
+class Jente {
+    # min_tid: float
+    # maks_tid: float
+}
+
+
+
+
+
+Person "0..*" -- "0..*" Stafettkonkurranse
+Lag "2..*" -- "0..*" Stafettkonkurranse
+
+Gutt "0..*" -- "1" Idrettslag
+Jente "0..*" -- "1" Idrettslag
+
+Person <|-- Gutt
+Person <|-- Jente
+
+@enduml
