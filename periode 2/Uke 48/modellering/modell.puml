@@ -5,6 +5,8 @@ class Eier {
 }
 
 class Platesamling {
+    artister: list[Artist]
+    album: list[Album]
     --
     legg_til_album(): (Album) -> None
     legg_til_artist(): (Artist) -> None
