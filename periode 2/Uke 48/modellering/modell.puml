@@ -18,7 +18,7 @@ class Artist {
     navn: str
     --
     vis_alle_album(): () -> None
-    registrer_album(): (Album) -> None
+    registrer_album(): (plateselskap: str, utgivelsesår: int) -> None
 }
 
 class Album {
