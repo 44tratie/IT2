@@ -1,0 +1,46 @@
+@startuml
+
+class Eier {
+    navn: str
+}
+
+class Platesamling {
+    --
+    legg_til_album(): (Album) -> None
+    legg_til_artist(): (Artist) -> None
+    vis_alle_album(): () -> None
+    vis_alle_artister(): () -> None
+}
+
+class Artist {
+    navn: str
+    --
+    vis_alle_album(): () -> None
+    registrer_album(): (Album) -> None
+}
+
+class Album {
+    artist: str
+    plateselskap: str
+    utgivelsesår: int
+    --
+    vis_info(): () -> None
+}
+
+class Vinyl extends Album {
+    rpm: int
+    farge: str
+    --
+    vis_info(): () -> None
+}
+
+class CD extends Album {
+    --
+    vis_info(): () -> None
+}
+
+Eier "0..1" --o "0..*" Platesamling : har eierskap av
+Platesamling "0..*" --o "0..*" Album : "består av"
+
+Album "0..*" *-- "1" Artist : er artist av
+@enduml
