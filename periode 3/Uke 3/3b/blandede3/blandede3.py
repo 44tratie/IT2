@@ -1,6 +1,8 @@
 import os
 
+import numpy as np
 import pandas as pd
+from matplotlib import colors as mcolors
 from matplotlib import pyplot as plt
 
 csv_path = os.path.join(
@@ -9,16 +11,30 @@ csv_path = os.path.join(
 
 df = pd.read_csv(csv_path, delimiter=";", index_col=0, header=None).T
 
+over_1000m_index = [
+    int(label.split("-")[0]) >= 1000 for label in df["Meter over havet"]
+]
+
 over_1000m = pd.DataFrame(
     data={
         "Meter over havet": "Over 1000 m",
-        "Fritidsbygg": sum(df.iloc[13:]["Fritidsbygg"].astype(int)),
+        "Fritidsbygg": sum(df[over_1000m_index]["Fritidsbygg"].astype(int)),
     },
-    index=[14],
+    index=[over_1000m_index.count(False) + 1],
 )
 
-ny_df = pd.concat([df[:13], over_1000m])
+ny_df = pd.concat([df[: over_1000m_index.count(False)], over_1000m])
 
-plt.barh(ny_df["Meter over havet"], ny_df["Fritidsbygg"].astype(int))
-plt.subplots_adjust(left=0.2)
+rvb = plt.cm.Spectral_r
+
+plt.barh(
+    ny_df["Meter over havet"],
+    ny_df["Fritidsbygg"].astype(int),
+    color=rvb(np.arange(len(ny_df)).astype(float) / len(ny_df)),
+)
+plt.title("Antall hytter på visse høyder")
+plt.xlabel("Antall hytter")
+plt.ylabel("Høyden på hyttene")
+plt.xticks(rotation=20)
+plt.subplots_adjust(left=0.2, bottom=0.2)
 plt.show()
