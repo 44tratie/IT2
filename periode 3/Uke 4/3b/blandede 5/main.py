@@ -30,7 +30,8 @@ def subtask_c():
 
 
 def subtask_d():
-    counts = df.value_counts(["userId"])
+    is_completed = df["completed"] == True
+    counts = df[is_completed].value_counts(["userId"])
     hardt_arbeidende_arbeider = counts.idxmax()[0]
     print(
         f"Bruker {hardt_arbeidende_arbeider} jobbet mest med {counts[hardt_arbeidende_arbeider]} oppgaver"
@@ -38,7 +39,8 @@ def subtask_d():
 
 
 def subtask_e():
-    counts = df.value_counts(["userId"])
+    is_completed = df["completed"] == True
+    counts = df[is_completed].value_counts(["userId"])
     lokende_arbeider = counts.idxmin()[0]
     print(
         f"Bruker {lokende_arbeider} jobbet minst med {counts[lokende_arbeider]} oppgaver"
