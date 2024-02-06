@@ -1,0 +1,9 @@
+Fordeler:
+- Kraftig verktøy, tillater å behandle store datamengder med masse forhåndslagde funksjonalitet slik at utvikleren kan bruke mer tid og energi på andre steder
+- Stor "community" gjør at biblioteket blir vedlikeholdt og oppdatert, og dokumentasjon er alltid tilgjengelig.
+- Bra kompatibilitet med matplotlib, numpy etc.
+
+Ulemper:
+- Kanskje nogenlunde høy "skill floor", som betyr at det kan være overveldene for en begynner i programmering ettersom mange av funksjonene er komplekse
+- Ikke egen implementasjon betyr at man ikke vet hva som skjer "bak scenen".
+- Tar plass på PC-en (klarer ikke tenke på noe annet)

@@ -1,0 +1,30 @@
+@startuml
+
+class ToDoListApp {
+    + root: tk.Tk
+    # toDoList: ToDoList
+    # tree: ttk.Treeview
+    # completed_var: tk.IntVar
+    # user_id_entry: ttk.Entry
+    --
+    # create_gui: () -> None
+    # remove_all_filters: () -> None
+    # apply_filters: () -> None
+}
+
+class ToDoList {
+    ...
+    --
+    +Tasks: (*filter_args) -> list[Todo]
+}
+
+class Todo {
+    + id: int
+    + owner: int
+    + title: str
+    + _completed: bool
+}
+
+Todo -- ToDoList
+ToDoListApp "0..*" --o "1" ToDoList : inneholder
+@enduml
