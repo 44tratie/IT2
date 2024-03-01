@@ -3,10 +3,10 @@ import random
 import pygame as pg
 from custom_types import RGBTuple
 
-from .object import Object
+from .gameobject import GameObject
 
 
-class Food(Object):
+class Food(GameObject):
     """Represents a Food-object in PacTroll. Players gain points by collecting these."""
 
     COLOR: RGBTuple = (255, 255, 0)

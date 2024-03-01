@@ -1,10 +1,8 @@
-import random
-
 import pygame as pg
-from settings import WINDOW_HEIGHT, WINDOW_WIDTH
+from settings import WINDOW_HEIGHT, WINDOW_WIDTH, GAME_FPS
 
 from .direction import KEY_VALUES, Direction
-from .objects import Food, Object, Obstacle, Troll
+from .objects import Food, GameObject, Obstacle, Troll
 
 
 class Game:
@@ -19,7 +17,7 @@ class Game:
 
         self.score = 0
 
-        self.player = Troll(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2, self.window)
+        self.player = Troll(*self.window.get_rect().center, self.window)
         self.obstacles = []
 
         self.food_objects = [Food(self.window)]
@@ -27,7 +25,7 @@ class Game:
         self._add_food_object()
 
     @property
-    def objects(self) -> list[Object]:
+    def objects(self) -> list[GameObject]:
         """All current objects in the game"""
         return [self.player] + self.obstacles + self.food_objects
 
@@ -133,7 +131,7 @@ class Game:
     def _update_frame(self) -> None:
         """Updates frame so the user can see change."""
         pg.display.flip()
-        self.clock.tick(30)
+        self.clock.tick(GAME_FPS)
 
     def _display_loss(self) -> None:
         """Displays a loss screen after the game is ended."""

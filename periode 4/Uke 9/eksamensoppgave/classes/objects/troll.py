@@ -2,10 +2,10 @@ import pygame as pg
 from classes.direction import Direction
 from custom_types import RGBTuple
 
-from .object import Object
+from .gameobject import GameObject
 
 
-class Troll(Object):
+class Troll(GameObject):
     """Represents the Troll in PacTroll, the playable character."""
 
     COLOR: RGBTuple = (0, 255, 0)

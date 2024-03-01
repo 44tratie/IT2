@@ -1,10 +1,10 @@
 import pygame as pg
 from custom_types import RGBTuple
 
-from .object import Object
+from .gameobject import GameObject
 
 
-class Obstacle(Object):
+class Obstacle(GameObject):
     """Represents an obstacle in PacTroll. Players die when these are hit "the second time"."""
 
     COLOR: RGBTuple = (128, 128, 128)
