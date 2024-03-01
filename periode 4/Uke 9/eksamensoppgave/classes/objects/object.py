@@ -5,8 +5,10 @@ from custom_types import RGBTuple
 
 
 class Object:
-    WIDTH: float = 10
-    HEIGHT: float = 10
+    """Represents a generic square object in PacTroll."""
+
+    WIDTH: float = 20
+    HEIGHT: float = 20
 
     def __init__(self, x: int, y: int, color: RGBTuple, window: pg.Surface) -> None:
         self.x = x
@@ -15,9 +17,11 @@ class Object:
         self.window = window
 
     def draw(self) -> None:
+        """Draws the object"""
         pg.draw.rect(self.window, self.color, (self.x, self.y, self.WIDTH, self.HEIGHT))
 
     def overlaps_with(self, other: Object) -> bool:
+        """Helper-function to check for overlaps with another object."""
         # assumes other is stationary and checks whether
         # a corner of self is within the others perimeter
 
