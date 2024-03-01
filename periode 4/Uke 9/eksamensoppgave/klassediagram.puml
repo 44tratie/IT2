@@ -1,0 +1,51 @@
+@startuml PacTroll
+
+class Game {
+    window: pg.Surface
+    food_objects: list[Food]
+    obstacles: list[Obstacle]
+    player: Troll
+    --
+    run: () -> None
+}
+
+Game "1" --* "3" Food
+Game "1" --* "0..*" Obstacle
+Game "1" --* "1" Troll
+
+class Object {
+    x: float
+    y: float
+    width: float
+    height: float
+    color: tuple[float, float, float]
+    --
+    overlaps_with: (other) -> bool
+    draw: () -> None
+}
+
+class Food extends Object {
+    
+}
+
+class Obstacle extends Object {
+    can_kill: bool
+}
+
+class Troll extends Object {
+    velocity: float
+    direction: Direction
+    --
+    move: (keys_pressed) -> None
+}
+
+enum Direction {
+    left
+    right
+    up
+    down
+}
+
+Direction --> Troll
+
+@enduml
