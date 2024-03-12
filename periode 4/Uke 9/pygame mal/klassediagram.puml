@@ -1,0 +1,33 @@
+@startuml ___
+
+class Foo {
+    + public
+    ~ package private
+    # protected
+    - private
+}
+
+class Bar {
+    --
+    + method: (param_type) -> return_type
+}
+
+' Aggregation (seperate)
+Foo --o Bar : "contains"
+
+' Composition (dependent)
+
+class A
+class B
+
+' A has 0 to many B, B has 1 A "leader"
+A "0..1" --* "1" B 
+
+' Association
+
+class C
+class D
+
+C -- D
+
+@enduml
