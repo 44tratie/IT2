@@ -1,0 +1,44 @@
+@startuml Argsflix Bucket List
+
+class BucketList {}
+
+class BaseMedium {
+    + title: str
+    + year: int
+    + imdbID: str
+    + type_: Literal["movie"] | Literal["series"]
+    + poster: str
+}
+
+class DetailedMedium extends BaseMedium {
+    + rated: str
+    + released: datetime
+    + runtime: int
+    + genre: list[str]
+    + director: list[str]
+    + writer: list[str]
+    + actors: list[str]
+    + plot: str
+    + language: list[str]
+    + country: list[str]
+    + awards: str
+    + ratings: list[Rating]
+    + metascore: int
+    + imdb_rating: str
+    + imdb_votes: int
+    + dvd: datetime
+    + box_office: int
+    + box_office_currency: str
+    + production: str
+    + website: str
+}
+
+class Rating {
+    + source: str
+    + value: str
+}
+
+Rating - DetailedMedium
+BucketList "1" --* "0..*" BaseMedium : "contains"
+
+@enduml
