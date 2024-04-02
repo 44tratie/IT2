@@ -6,9 +6,9 @@ from .base_medium import BaseMedium
 from .rating import Rating
 
 
-class DetailedMovie(BaseMedium):
+class DetailedGame(BaseMedium):
     rated: str = Field(alias="Rated")
-    released: datetime = Field(alias="Released")
+    released: str = Field(alias="Released")
     runtime: int = Field(alias="Runtime")
     genre: list[str] = Field(alias="Genre")
     director: list[str] = Field(alias="Director")

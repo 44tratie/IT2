@@ -8,7 +8,7 @@ from .rating import Rating
 
 class DetailedSeries(BaseMedium):
     rated: str = Field(alias="Rated")
-    released: datetime = Field(alias="Released")
+    released: str = Field(alias="Released")
     runtime: int = Field(alias="Runtime")
     genre: list[str] = Field(alias="Genre")
     director: list[str] = Field(alias="Director")
