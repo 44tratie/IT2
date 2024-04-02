@@ -7,7 +7,7 @@ from .rating import Rating
 
 
 class DetailedGame(BaseMedium):
-    rated: str = Field(alias="Rated")
+    pg_rating: str = Field(alias="Rated")
     released: str = Field(alias="Released")
     runtime: int = Field(alias="Runtime")
     genre: list[str] = Field(alias="Genre")
