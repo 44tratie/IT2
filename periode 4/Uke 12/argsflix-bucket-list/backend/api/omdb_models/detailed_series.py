@@ -42,3 +42,8 @@ class DetailedSeries(BaseMedium):
     @classmethod
     def parse_ratings(cls, raw: list[dict]) -> list[Rating]:
         return [Rating(**rating) for rating in raw]
+
+    @field_validator("imdb_votes", mode="before")
+    @classmethod
+    def parse_comma_integer(cls, raw: str) -> int:
+        return int(raw.replace(",", ""))

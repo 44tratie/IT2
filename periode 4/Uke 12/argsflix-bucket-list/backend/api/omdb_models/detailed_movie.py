@@ -22,8 +22,8 @@ class DetailedMovie(BaseMedium):
     metascore: int = Field(alias="Metascore")
     imdb_rating: str = Field(alias="imdbRating")
     imdb_votes: int = Field(alias="imdbVotes")
-    dvd: datetime = Field(alias="DVD")
-    box_office: int = Field(alias="BoxOffice")
+    dvd: str = Field(alias="DVD")
+    box_office: str = Field(alias="BoxOffice")
     production: str = Field(alias="Production")
 
     @field_validator(
@@ -44,3 +44,8 @@ class DetailedMovie(BaseMedium):
     @classmethod
     def parse_ratings(cls, raw: list[dict]) -> list[Rating]:
         return [Rating(**rating) for rating in raw]
+
+    @field_validator("imdb_votes", mode="before")
+    @classmethod
+    def parse_comma_integer(cls, raw: str) -> int:
+        return int(raw.replace(",", ""))
