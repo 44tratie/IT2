@@ -4,7 +4,7 @@ from urllib.parse import urlencode
 
 import requests
 
-from .omdb_models import BaseMedium
+from .omdb_models import BaseMedium, DetailedGame, DetailedMovie, DetailedSeries
 
 
 class APIWrapper:
@@ -31,3 +31,25 @@ class APIWrapper:
             return []
 
         return [BaseMedium(**entry) for entry in data["Search"]]
+
+    def by_id(self, imdb_id: str) -> DetailedGame | DetailedMovie | DetailedSeries:
+        query_params = {"i": imdb_id, "plot": "full", "apikey": self.__api_key}
+        res = requests.get(
+            self.BASE_URL
+            + urlencode({k: v for k, v in query_params.items() if v is not None})
+        )
+
+        data = res.json()
+
+        if data["Response"] != "True":
+            raise ValueError(f"Invalid imdb_id passed. ({imdb_id})")
+
+        del data["Response"]
+
+        match data["Type"]:
+            case "game":
+                return DetailedGame(**data)
+            case "movie":
+                return DetailedMovie(**data)
+            case "series":
+                return DetailedSeries(**data)
