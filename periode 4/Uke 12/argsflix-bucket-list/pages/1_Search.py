@@ -2,7 +2,8 @@ import streamlit as st
 
 from backend.api import APIWrapper
 from backend.bucket_list import BucketList
-from css_utils import center_container
+from components.details_modal import DetailsModalComponent
+from css_utils import center_container, position_modal
 
 api = APIWrapper()
 bucket_list = BucketList()
@@ -18,6 +19,9 @@ for medium in media:
         with cols[0]:
             st.write(medium.title)
             st.write(medium.year)
+
+            details_modal = DetailsModalComponent(medium)
+
             if medium.imdb_id in bucket_list.list:
                 st.button(
                     "Remove from bucket list",
@@ -37,3 +41,4 @@ for medium in media:
             st.image(medium.poster)
 
 center_container()
+position_modal()

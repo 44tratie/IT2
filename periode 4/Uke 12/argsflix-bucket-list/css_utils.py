@@ -26,3 +26,15 @@ def invert_toggle() -> None:
         """,
         unsafe_allow_html=True,
     )
+
+
+def position_modal() -> None:
+    st.write(
+        """<style>
+        [data-testid="stVerticalBlockBorderWrapper"] {
+            top: 0;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
