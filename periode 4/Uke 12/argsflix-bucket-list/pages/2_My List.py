@@ -1,7 +1,7 @@
 import streamlit as st
 
-from backend.api import APIWrapper
 from backend.bucket_list import BucketList
+from components.details_modal import DetailsModalComponent
 from components.sort import SortComponent
 from css_utils import center_container, invert_toggle
 from filters import make_show_filter, make_type_filter
@@ -38,6 +38,7 @@ for medium in sorted_media:
                 on_change=bucket_list.update_seen,
                 args=(medium.imdb_id,),
             )
+            details_modal = DetailsModalComponent(medium)
             st.button(
                 "Remove from bucket list",
                 key=medium.imdb_id + "-remove",

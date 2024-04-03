@@ -3,7 +3,7 @@ import streamlit as st
 from backend.api import APIWrapper
 from backend.bucket_list import BucketList
 from components.details_modal import DetailsModalComponent
-from css_utils import center_container, position_modal
+from css_utils import center_container
 
 api = APIWrapper()
 bucket_list = BucketList()
@@ -41,4 +41,3 @@ for medium in media:
             st.image(medium.poster)
 
 center_container()
-position_modal()

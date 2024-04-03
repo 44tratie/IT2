@@ -3,6 +3,7 @@ from streamlit_modal import Modal
 
 from backend.api import APIWrapper
 from backend.api.omdb_models import BaseMedium
+from css_utils import position_modal
 
 
 class DetailsModalComponent:
@@ -14,6 +15,7 @@ class DetailsModalComponent:
             self.medium_modal.open()
 
         if self.medium_modal.is_open():
+            position_modal()
             api = APIWrapper()
             self.medium_details = api.by_id(medium.imdb_id)
             self.render()
