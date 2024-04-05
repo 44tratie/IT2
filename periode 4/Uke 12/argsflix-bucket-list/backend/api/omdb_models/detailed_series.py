@@ -9,7 +9,7 @@ from .rating import Rating
 class DetailedSeries(BaseMedium):
     pg_rating: str = Field(alias="Rated")
     released: str = Field(alias="Released")
-    runtime: int = Field(alias="Runtime")
+    runtime: str = Field(alias="Runtime")
     genre: list[str] = Field(alias="Genre")
     director: list[str] = Field(alias="Director")
     writer: list[str] = Field(alias="Writer")
@@ -19,7 +19,7 @@ class DetailedSeries(BaseMedium):
     country: list[str] = Field(alias="Country")
     awards: str = Field(alias="Awards")
     ratings: list[Rating] = Field(alias="Ratings")
-    metascore: int = Field(alias="Metascore")
+    metascore: str = Field(alias="Metascore")
     imdb_rating: str = Field(alias="imdbRating")
     imdb_votes: int = Field(alias="imdbVotes")
     total_seasons: int = Field(alias="totalSeasons")
@@ -30,13 +30,6 @@ class DetailedSeries(BaseMedium):
     @classmethod
     def listify(cls, raw: str) -> list[str]:
         return raw.split(", ")
-
-    @field_validator("runtime", mode="before")
-    @classmethod
-    def get_minutes(cls, raw: str) -> int:
-        # unsure but according to examples omdb follows this format
-        minutes, _ = raw.split()
-        return int(minutes)
 
     @field_validator("ratings", mode="before")
     @classmethod
