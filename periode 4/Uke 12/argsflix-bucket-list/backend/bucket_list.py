@@ -59,6 +59,12 @@ class BucketList:
     def remove_from_list(self, entry_id: str):
         self.list.pop(entry_id, None)
 
+    @_save_list
+    def reset_list(self):
+        self.list = {}
+        self.seen = set()
+        self._save_seen()
+
     def update_seen(self, entry_id: str):
         if entry_id in self.seen:
             self.seen.remove(entry_id)
