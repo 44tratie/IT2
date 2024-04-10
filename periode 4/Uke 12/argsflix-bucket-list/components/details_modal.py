@@ -37,8 +37,6 @@ class DetailsModalComponent:
             f"Metascore: {self.medium_details.metascore}",
             f"IMDb Rating: {self.medium_details.imdb_rating}",
             f"IMDb Votes: {self.medium_details.imdb_votes}",
-            f"DVD Date: {self.medium_details.dvd}",
-            f"Production: {self.medium_details.production}",
         ]
 
         with self.medium_modal.container():
