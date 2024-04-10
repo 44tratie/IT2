@@ -3,8 +3,9 @@ import traceback
 from colorama import Back, Fore, Style
 
 from testing.backend.api import test_api
+from testing.backend.bucket_list import test_bucket_list
 
-tests = [test_api]
+tests = [test_api, test_bucket_list]
 
 
 def run_tests() -> None:
