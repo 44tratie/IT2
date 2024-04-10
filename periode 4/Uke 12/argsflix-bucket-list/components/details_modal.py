@@ -2,7 +2,7 @@ import streamlit as st
 from streamlit_modal import Modal
 
 from backend.api import APIWrapper
-from backend.api.omdb_models import BaseMedium
+from backend.api.omdb_models import BaseMedium, DetailedMedium
 from css_utils import position_modal
 
 
@@ -17,18 +17,18 @@ class DetailsModalComponent:
         if self.medium_modal.is_open():
             position_modal()
             api = APIWrapper()
-            self.medium_details = api.by_id(medium.imdb_id)
+            self.medium_details: DetailedMedium = api.by_id(medium.imdb_id)
             self.render()
 
     def render(self):
         col_data = [
             f"{self.medium_details.title} ({self.medium_details.year})",
+            f"Media Type: {self.medium_details.type_.title()}",
             f"Age Rating: {self.medium_details.pg_rating}",
             f"Release Date: {self.medium_details.released}",
             f"Runtime: {self.medium_details.runtime} minutes",
             f"Genre(s): {', '.join(self.medium_details.genre)}",
             f"Awards: {self.medium_details.awards}",
-            f"Box Office: {self.medium_details.box_office}",
             f"Language(s): {', '.join(self.medium_details.language)}",
             f"Director(s): {', '.join(self.medium_details.director)}",
             f"Writer(s): {', '.join(self.medium_details.writer)}",
