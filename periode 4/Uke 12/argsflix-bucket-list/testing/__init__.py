@@ -4,10 +4,12 @@ from colorama import Back, Fore, Style
 
 from testing.backend.api import test_api
 from testing.backend.bucket_list import test_bucket_list
+from utils import test_environment
 
 tests = [test_api, test_bucket_list]
 
 
+@test_environment
 def run_tests() -> None:
     success_messages = []
     for test in tests:
