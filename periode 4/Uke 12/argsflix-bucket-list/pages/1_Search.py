@@ -18,7 +18,7 @@ for medium in media:
 
         with cols[0]:
             st.write(medium.title)
-            st.write(medium.year)
+            st.write(f"{medium.type_.title()} ({medium.year})")
 
             details_modal = DetailsModalComponent(medium)
 
