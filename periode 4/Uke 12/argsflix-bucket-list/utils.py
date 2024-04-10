@@ -33,11 +33,3 @@ def test_environment(test_f):
             return return_val
 
     return wrapped
-
-
-@test_environment
-def a():
-    return
-
-
-a()
