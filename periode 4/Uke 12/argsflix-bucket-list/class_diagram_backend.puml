@@ -1,0 +1,80 @@
+@startuml Argsflix Bucket List
+
+class BucketList {
+    + list: dict[str, BaseMedium]
+    + seen: set[str]
+    --
+    + add_to_list: (media: BaseMedium) -> None
+    + remove_from_list: (imdb_id: str) -> None
+    + reset_list: () -> None
+    + update_seen: (imdb_id: str) -> None
+    # _save_list: (method: Callable[[Any_T1], Any_T2]) -> Callable[[Any_T1], Any_T2]
+    # _load_list: () -> None
+    # _save_seen: () -> None
+    # _load_seen: () -> None
+}
+
+class APIWrapper {
+    - __api_key: str
+    --
+    + query_movie: (search: str, type: Literal["movie"] | Literal["series"] | None = None, year: int | None = None) -> list[BaseMedium]
+    + by_id: (imdb_id: str) -> DetailedGame | DetailedMovie | DetailedGame
+}
+
+APIWrapper -- BaseMedium : "query returns"
+APIWrapper -- DetailedGame : "id lookup returns"
+APIWrapper -- DetailedMovie : "id lookup returns"
+APIWrapper -- DetailedSeries : "id lookup returns"
+
+class BaseMedium {
+    + title: str
+    + year: int
+    + imdb_id: str
+    + type_: Literal["movie"] | Literal["series"]
+    + poster: str
+}
+
+class DetailedMedium extends BaseMedium {
+        + pg_rating: str
+    + released: str
+    + runtime: str
+    + genre: list[str]
+    + director: list[str]
+    + writer: list[str]
+    + actors: list[str]
+    + plot: str
+    + language: list[str]
+    + country: list[str]
+    + awards: str
+    + ratings: list[Rating]
+    + metascore: str
+    + imdb_rating: str
+    + imdb_votes: int
+}
+
+class DetailedMovie extends DetailedMedium {
+    + dvd: str
+    + box_office: str
+    + production: str
+}
+
+class DetailedGame extends DetailedMedium {
+    + dvd: str
+    + box_office: str
+    + production: str
+    + website: str
+}
+
+class DetailedSeries extends DetailedMedium {
+    + total_seasons: int
+}
+
+class Rating {
+    + source: str
+    + value: str
+}
+
+Rating - DetailedMedium
+BucketList "1" --* "0..*" BaseMedium : "contains"
+
+@enduml
