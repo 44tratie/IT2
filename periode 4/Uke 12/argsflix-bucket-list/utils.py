@@ -28,7 +28,7 @@ def test_environment(test_f):
             # restore existing values
             shutil.copy("temp/seen.json", "seen.json")
             shutil.copy("temp/bucket_list.json", "bucket_list.json")
-            os.rmdir("temp")
+            shutil.rmtree("temp")
 
             return return_val
 
