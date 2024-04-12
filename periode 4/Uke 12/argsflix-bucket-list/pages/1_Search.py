@@ -8,10 +8,13 @@ from css_utils import center_container
 api = APIWrapper()
 bucket_list = BucketList()
 
+# ui compoennt
 search_term = st.text_input("Search query:")
 
+# do a query
 media = api.query_movie(search_term)
 
+# display every result from query
 for medium in media:
     with st.container():
         cols = st.columns(2)
@@ -20,6 +23,7 @@ for medium in media:
             st.write(medium.title)
             st.write(f"{medium.type_.title()} ({medium.year})")
 
+            # see more button
             details_modal = DetailsModalComponent(medium)
 
             if medium.imdb_id in bucket_list.list:

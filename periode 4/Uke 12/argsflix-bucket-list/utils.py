@@ -8,12 +8,17 @@ T = TypeVar("T")
 
 
 def multisort(iterable: Iterable[T], sort_specs: list[tuple[str, bool]]) -> list[T]:
+    """Sorts an iterable by multiple sort conditions"""
+
     for sort_by, reverse in reversed(sort_specs):
         iterable = sorted(iterable, key=attrgetter(sort_by), reverse=reverse)
+
     return iterable
 
 
 def test_environment(test_f):
+    """Sets up a test environment that saves current local files beforehand"""
+
     @functools.wraps(test_f)
     def wrapped(*args, **kwargs):
         # store existing values in temp files

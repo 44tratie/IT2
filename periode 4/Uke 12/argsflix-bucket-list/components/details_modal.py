@@ -7,7 +7,10 @@ from css_utils import position_modal
 
 
 class DetailsModalComponent:
+    """Frontend component for modal (used for "See more" or "Details")"""
+
     def __init__(self, medium: BaseMedium) -> None:
+        # create the open button and initialize the modal
         open_modal = st.button("See more", key=medium.imdb_id + "details")
         self.medium_modal = Modal(f"{medium.title} ({medium.year})", medium.imdb_id)
 
@@ -15,12 +18,17 @@ class DetailsModalComponent:
             self.medium_modal.open()
 
         if self.medium_modal.is_open():
+            # put on css and get detailed data from api
             position_modal()
             api = APIWrapper()
             self.medium_details: DetailedMedium = api.by_id(medium.imdb_id)
+
+            # show the modal popup
             self.render()
 
     def render(self):
+        """Renders the popup"""
+
         col_data = [
             f"{self.medium_details.title} ({self.medium_details.year})",
             f"Media Type: {self.medium_details.type_.title()}",
@@ -39,9 +47,8 @@ class DetailsModalComponent:
             f"IMDb Votes: {self.medium_details.imdb_votes}",
         ]
 
+        # write data to modal
         with self.medium_modal.container():
-            # for i, col in enumerate(st.columns(len(col_data))):
-            # with col:
             for text in col_data:
                 st.write(text)
 

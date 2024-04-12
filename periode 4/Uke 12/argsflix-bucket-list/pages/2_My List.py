@@ -9,6 +9,7 @@ from utils import multisort
 
 bucket_list = BucketList()
 
+# sorting and filtering
 with st.container():
     filter_col, sort_col = st.columns(2)
 
@@ -21,11 +22,13 @@ with st.container():
         sort_component.make()
 
 
+# get list and sort/filter
 media = bucket_list.list.values()
 filters = [show_filter, type_filter]
 filtered_media = filter(lambda medium: all(f(medium) for f in filters), media)
 sorted_media = multisort(filtered_media, sort_component.get_sort_specs())
 
+# display list
 for medium in sorted_media:
     with st.container():
         cols = st.columns(3)

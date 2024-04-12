@@ -5,6 +5,8 @@ from .rating import Rating
 
 
 class DetailedMedium(BaseMedium):
+    """Models a generic unspecified media-type response of id search from the OMDb API"""
+
     pg_rating: str = Field(alias="Rated")
     released: str = Field(alias="Released")
     runtime: str = Field(alias="Runtime")

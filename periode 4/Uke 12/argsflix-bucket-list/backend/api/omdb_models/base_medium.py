@@ -6,6 +6,8 @@ from .missing_poster import BLANK_FILE_SVG
 
 
 class BaseMedium(BaseModel):
+    """Models the response of query results from the OMDb API"""
+
     title: str = Field(alias="Title")
     year: str = Field(alias="Year")
     imdb_id: str = Field(alias="imdbID")
