@@ -45,6 +45,7 @@ class DetailsModalComponent:
             f"Metascore: {self.medium_details.metascore}",
             f"IMDb Rating: {self.medium_details.imdb_rating}",
             f"IMDb Votes: {self.medium_details.imdb_votes}",
+            f"IMDb ID: {self.medium_details.imdb_id}",
         ]
 
         # write data to modal
