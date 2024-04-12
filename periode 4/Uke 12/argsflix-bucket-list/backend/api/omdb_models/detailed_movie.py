@@ -9,3 +9,4 @@ class DetailedMovie(DetailedMedium):
     dvd: str = Field(alias="DVD")
     box_office: str = Field(alias="BoxOffice")
     production: str = Field(alias="Production")
+    website: str = Field(alias="Website")
