@@ -23,11 +23,15 @@ class APIWrapper:
     ) -> list[BaseMedium]:
         """Querys a search term and returns a list of results"""
 
-        query_params = {"s": search, "type": type_, "y": year, "apikey": self.__api_key}
+        query_params = {"s": search, "type": type_,
+                        "y": year, "apikey": self.__api_key}
         res = requests.get(
             self.BASE_URL
             + urlencode({k: v for k, v in query_params.items() if v is not None})
         )
+
+        if not res.ok:
+            raise Exception("Response was not ok.")
 
         data = res.json()
 
@@ -44,6 +48,9 @@ class APIWrapper:
             self.BASE_URL
             + urlencode({k: v for k, v in query_params.items() if v is not None})
         )
+
+        if not res.ok:
+            raise Exception("Response was not ok.")
 
         data = res.json()
 
