@@ -21,3 +21,13 @@ Run the frontend application from the root directory of this project with:
 Run tests from the root directory of this project using:
 
 `pipenv run test`
+
+## Run CLI version
+
+Run the CLI version using:
+
+`pipenv run CLI`
+
+OR (without virtual environment)
+
+`py cli_main.py`

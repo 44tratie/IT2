@@ -6,6 +6,7 @@ name = "pypi"
 [scripts]
 main = "streamlit run Home.py"
 test = "py test.py"
+CLI = "py cli_main.py"
 
 [packages]
 altair = "==5.2.0"

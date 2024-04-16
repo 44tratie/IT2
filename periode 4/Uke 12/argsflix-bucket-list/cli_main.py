@@ -76,6 +76,9 @@ class CLIApp(cmd.Cmd):
         print("Resetted the bucket list")
         self.bucket_list.reset_list()
 
+    def do_quit(self, _) -> None:
+        return True
+
 
 def main() -> None:
     app = CLIApp()
