@@ -1,0 +1,48 @@
+<mxfile host="65bd71144e">
+    <diagram id="TDCZ4j-PabGV3GEZQRRz" name="Page-1">
+        <mxGraphModel dx="576" dy="466" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="Symboler" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="125" y="80" width="70" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Beregning" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="280" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="Start / stopp" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="120" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="Les / skriv" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="200" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="Test / sjekk" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="360" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Kommentar" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="120" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="320" y="360" as="sourcePoint"/>
+                        <mxPoint x="430" y="360" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="10" value="Flytpil" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="345" y="325" width="50" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="315" y="440" as="sourcePoint"/>
+                        <mxPoint x="445" y="440" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="15" value="Ja / Nei" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="14">
+                    <mxGeometry x="-0.3128" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
