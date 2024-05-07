@@ -1,0 +1,1 @@
+Denne oppgaven kan kjøres med standard library. Ingen eksterne pakkes er påkrevet.
