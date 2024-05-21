@@ -7,7 +7,7 @@ class Bil(BaseModel):
     type: str = Field(alias="Type")
     modell: str = Field(alias="Modell")
     registreringsnummer: str = Field(alias="Registreringsnummer")
-    pris_per_km: float = Field(alias = "Pris per km")
+    pris_per_km: float = Field(alias="Pris per km")
 
     def __str__(self) -> str:
         data = self.model_dump(by_alias=True)

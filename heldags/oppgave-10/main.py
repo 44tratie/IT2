@@ -2,6 +2,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 from verktøy import hent_absolutt_bane, hent_måned
 
+
 def print_total_per_type(df: pd.DataFrame):
     """Deloppgave a."""
 
@@ -33,9 +34,12 @@ def lag_månedsutviklingsgraf(df: pd.DataFrame):
     x_verdier = sorted(måneder)
     y_verdier = []
 
+    hverdagsutgifter = {"mat", "klær"}
+
     # Hent månedskostnad per måned
     for måned in x_verdier:
-        y_verdier.append(df[df["Dato"].map(hent_måned) == måned]["Beløp"].sum())
+        riktig_måned = df[df["Dato"].map(hent_måned) == måned]
+        y_verdier.append(riktig_måned[riktig_måned["Type"].isin(hverdagsutgifter)]["Beløp"].sum())
 
     # Opprett en graf
     fig, ax = plt.subplots()
@@ -81,11 +85,12 @@ def main() -> None:
     # Henter banen til csv filen og leser filen
     csv_bane = hent_absolutt_bane("utgifter.csv")
     df = pd.read_csv(csv_bane, delimiter=";", skiprows=1)
-
-    print_total_per_type(df)
-    print_total_per_måned(df)
+    # df["Dato"] = pd.to_datetime(df["Dato"], format="%d.%m.%Y")
+    # print(df["Dato"][0].month)
+    # print_total_per_type(df)
+    # print_total_per_måned(df)
     lag_månedsutviklingsgraf(df)
-    lag_type_utgift_diagram(df)
+    # lag_type_utgift_diagram(df)
 
 
 
