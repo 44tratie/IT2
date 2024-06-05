@@ -1,70 +1,150 @@
+import json
 from collections import defaultdict
+from datetime import UTC, datetime
 
 from bilkollektiv import BilKollektiv
-from bilkollektiv.modeller.biler import Elbil, Fossilbil
+from settings import reservasjonsdata_bane
+
 from .reservasjon import Reservasjon
+
 
 class Reserveringssystem:
     def __init__(self, bilkollektiv: BilKollektiv, simulasjon: bool = False) -> None:
         self.simulasjon = simulasjon
         self.bilkollektiv = bilkollektiv
 
+        with open(reservasjonsdata_bane) as reservasjonsdata_fil:
+            reservasjonsdata_json = json.load(reservasjonsdata_fil)
+
         # dict[id, Reservasjon]
-        self.reservasjoner: dict[int, Reservasjon] = {}
+        self.reservasjoner: dict[int, Reservasjon] = reservasjonsdata_json[
+            "reservasjoner"
+        ]
         # dict[bil_registreringsnummer, reservasjoner]
         self.bil_reservasjoner: dict[str, dict[int, Reservasjon]] = defaultdict(dict)
+        self.bil_reservasjoner.update(reservasjonsdata_json["bil_reservasjoner"])
 
-    def legg_til_reservasjon(self, reservasjon: Reservasjon):
+        self.neste_reservasjon_id = (
+            (
+                max(
+                    self.reservasjoner,
+                    key=lambda k: self.reservasjoner[k].reservasjon_ID,
+                )
+                + 1
+            )
+            if self.reservasjoner
+            else 1
+        )
+
+    def vis_ledige_biler(self, start_tid: datetime, slutt_tid: datetime) -> set[str]:
+        ledige_biler = {
+            reg_nr
+            for reg_nr in self.bilkollektiv.biler.keys()
+            if all(
+                not bil_reservasjon.overlapper(start_tid, slutt_tid)
+                for bil_reservasjon in self.bil_reservasjoner[reg_nr].values()
+            )
+        }
+
+        print(f"Ledige biler: {", ".join(ledige_biler)}")
+
+        return ledige_biler
+
+    def få_reservasjoner(self) -> list[Reservasjon]:
+        return [
+            reservasjon
+            for reservasjon in self.reservasjoner.values()
+            if reservasjon.start_tid > datetime.now(UTC)
+        ]
+
+    def få_utløpte_reservasjoner(self) -> list[Reservasjon]:
+        return [
+            reservasjon
+            for reservasjon in self.reservasjoner.values()
+            if reservasjon.start_tid < datetime.now(UTC)
+        ]
+
+    def lag_reservasjon(
+        self,
+        navn: str,
+        email: str,
+        bil_registreringsnummer: str,
+        start_tid: datetime,
+        slutt_tid: datetime,
+    ):
+        reservasjon = Reservasjon(
+            self.neste_reservasjon_id,
+            navn,
+            email,
+            bil_registreringsnummer,
+            start_tid,
+            slutt_tid,
+        )
+
         # Bilen finnes ikke i kollektivet
         if reservasjon.bil_registreringsnummer not in self.bilkollektiv.biler:
             return
-        
+
         # Bilen er allerede reservert på det tidspunktet
-        for bil_reservasjon in self.bil_reservasjoner.get(reservasjon.bil_registreringsnummer, {}).get(reservasjon.reservasjon_ID, []):
-            if reservasjon.overlapper(bil_reservasjon):
+        for bil_reservasjon in self.bil_reservasjoner.get(
+            reservasjon.bil_registreringsnummer, {}
+        ).values():
+            if reservasjon.overlapper(
+                bil_reservasjon.start_tid, bil_reservasjon.slutt_tid
+            ):
                 return
-            # uimplementert
-            # if dato_overlapp(reservasjon, bil_reservasjon):
-                # return
-            pass
 
         self.reservasjoner[reservasjon.reservasjon_ID] = reservasjon
-        self.bil_reservasjoner[reservasjon.bil_registreringsnummer][reservasjon.reservasjon_ID] = reservasjon
+        self.bil_reservasjoner[reservasjon.bil_registreringsnummer][
+            reservasjon.reservasjon_ID
+        ] = reservasjon
+
+        self.neste_reservasjon_id += 1
+
+        print("Kvittering:")
+        print(reservasjon)
+
+        self.lagre_reservasjoner()
 
     def fjern_reservasjon(self, reservasjon_ID: int):
-        self.bil_reservasjoner[self.reservasjoner[reservasjon_ID].bil_registreringsnummer].pop(reservasjon_ID)
+        self.bil_reservasjoner[
+            self.reservasjoner[reservasjon_ID].bil_registreringsnummer
+        ].pop(reservasjon_ID)
         self.reservasjoner.pop(reservasjon_ID)
+
+        self.lagre_reservasjoner()
 
     def lever_bil(self, reservasjon: Reservasjon, km_kjørt: float):
         bil_kjørt = self.bilkollektiv.biler[reservasjon.bil_registreringsnummer]
 
-        print(f"Pris for strekningen {km_kjørt}: {bil_kjørt.pris_per_km * km_kjørt}")
-
-        match bil_kjørt:
-            # Antar at brukeren fullader/fyller tanken helt opp hvis den noen gang ble brukt opp
-            case Elbil():
-                wattimer_forbruk = bil_kjørt.wattimer_per_km * km_kjørt
-                print(f"Du har brukt {wattimer_forbruk} watt-timer av bilen")
-
-                if bil_kjørt.energinivå < wattimer_forbruk:
-                    print("Du fulladet bilen ved kjøring")
-                    bil_kjørt.energinivå += bil_kjørt.batteri
-
-                bil_kjørt.energinivå -= wattimer_forbruk
-
-                print(f"Bilen har {bil_kjørt.energinivå} watt-timer igjen")
-            case Fossilbil():
-                bensin_forbruk = bil_kjørt.bensin_per_km * km_kjørt
-                print(f"Du har brukt {bensin_forbruk} liter av bilens tank")
-
-                if bil_kjørt.drivstoffmengde < bensin_forbruk:
-                    print("Du fylte bilens tank ved kjøring")
-                    bil_kjørt.drivstoffmengde += bil_kjørt.tank
-
-                bil_kjørt.drivstoffmengde -= bensin_forbruk
-
-                print(f"Bilen har {bil_kjørt.drivstoffmengde} liter bensin igjen")
+        bil_kjørt.lever(km_kjørt)
 
         # Oppdater tilstanden til bilene
         if not self.simulasjon:
             self.bilkollektiv.lagre_tilstand()
+
+    def lagre_reservasjoner(self):
+        if self.simulasjon:
+            return
+
+        # Serialisering
+        reservasjoner = {
+            reservasjon_id: reservasjon.model_dump_json()
+            for reservasjon_id, reservasjon in self.reservasjoner.items()
+        }
+        bil_reservasjoner = {
+            reg_nr: {
+                reservasjon_id: reservasjon.model_dump_json()
+                for reservasjon_id, reservasjon in reservasjoner.items()
+            }
+            for reg_nr, reservasjoner in self.bil_reservasjoner.items()
+        }
+
+        with open(reservasjonsdata_bane, "w") as reservasjonsdata_fil:
+            json.dump(
+                {
+                    "reservasjoner": reservasjoner,
+                    "bil_reservasjoner": bil_reservasjoner,
+                },
+                reservasjonsdata_fil,
+            )

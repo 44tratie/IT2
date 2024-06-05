@@ -1,20 +1,44 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import UTC, datetime
+from typing import Any
 
 
 class Reservasjon:
-    reservasjon_ID = 0
-
-    def __init__(self, navn: str, email: str, bil_registreringsnummer: str, start_tid: datetime, slutt_tid: datetime) -> None:
-        Reservasjon.reservasjon_ID += 1
-        self.reservasjon_ID = Reservasjon.reservasjon_ID
-
+    def __init__(
+        self,
+        reservasjon_ID: int,
+        navn: str,
+        email: str,
+        bil_registreringsnummer: str,
+        start_tid: datetime,
+        slutt_tid: datetime,
+    ) -> None:
+        self.reservasjon_ID = reservasjon_ID
         self.navn = navn
         self.email = email
         self.bil_registreringsnummer = bil_registreringsnummer
-        self.start_tid = start_tid
-        self.slutt_tid = slutt_tid
+        self.start_tid = start_tid.astimezone(UTC)
+        self.slutt_tid = slutt_tid.astimezone(UTC)
 
-    def overlapper(self, annen: Reservasjon) -> bool:
-        return annen.slutt_tid > self.start_tid and annen.start_tid < self.slutt_tid
+    def overlapper(self, start_tid: datetime, slutt_tid: datetime) -> bool:
+        return (
+            slutt_tid.astimezone(UTC) > self.start_tid
+            and start_tid.astimezone(UTC) < self.slutt_tid
+        )
+
+    def model_dump_json(self) -> dict[str, Any]:
+        return {
+            "reservasjon_ID": self.reservasjon_ID,
+            "navn": self.navn,
+            "email": self.email,
+            "bil_registreringsnummer": self.bil_registreringsnummer,
+            "start_tid": self.start_tid.isoformat(),
+            "slutt_tid": self.slutt_tid.isoformat(),
+        }
+
+    def __str__(self) -> str:
+        return f"""Reservasjon {self.reservasjon_ID} ({self.start_tid.isoformat()} - {self.slutt_tid.isoformat()})
+Reservert bil: {self.bil_registreringsnummer}
+Navn: {self.navn}
+Email: {self.email}"""
