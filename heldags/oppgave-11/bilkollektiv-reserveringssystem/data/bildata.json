@@ -6,7 +6,7 @@
         "Pris per km": 1.9,
         "Watt-timer per km": 173,
         "Batteri": 58000,
-        "Energinivå": 0
+        "Energiniv\u00e5": 56270
     },
     {
         "Type": "Elbil",
@@ -15,7 +15,7 @@
         "Pris per km": 2.1,
         "Watt-timer per km": 175,
         "Batteri": 65000,
-        "Energinivå": 10000
+        "Energiniv\u00e5": 10000
     },
     {
         "Type": "Fossil",
@@ -30,7 +30,7 @@
         "Type": "Fossil",
         "Modell": "Toyota",
         "Registreringsnummer": "AF1239",
-        "Pris per km": 3,
+        "Pris per km": 3.0,
         "Bensin per km": 5.8,
         "Tank": 47,
         "Drivstoffmengde": 30
@@ -39,8 +39,8 @@
         "Type": "Fossil",
         "Modell": "Toyota",
         "Registreringsnummer": "MR3231",
-        "Pris per km": 3,
-        "Bensin per km": 8,
+        "Pris per km": 3.0,
+        "Bensin per km": 8.0,
         "Tank": 47,
         "Drivstoffmengde": 47
     }

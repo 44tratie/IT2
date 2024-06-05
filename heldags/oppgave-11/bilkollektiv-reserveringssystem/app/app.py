@@ -89,8 +89,10 @@ class App:
 
         valg_i = App._få_bruker_valg(len(reservasjoner)) - 1
 
+        distanse = int(input("Hvor langt kjørte du (km)? "))
+
         reservasjon = reservasjoner[valg_i]
-        self.reserveringssystem.lever_bil(reservasjon)
+        self.reserveringssystem.lever_bil(reservasjon, distanse)
         self.reserveringssystem.fjern_reservasjon(reservasjon.reservasjon_ID)
 
     @staticmethod

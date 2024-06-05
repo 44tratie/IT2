@@ -18,8 +18,16 @@ class Reservasjon:
         self.navn = navn
         self.email = email
         self.bil_registreringsnummer = bil_registreringsnummer
-        self.start_tid = start_tid.astimezone(UTC)
-        self.slutt_tid = slutt_tid.astimezone(UTC)
+        self.start_tid = (
+            datetime.fromisoformat(start_tid).astimezone(UTC)
+            if isinstance(start_tid, str)
+            else start_tid.astimezone(UTC)
+        )
+        self.slutt_tid = (
+            datetime.fromisoformat(slutt_tid).astimezone(UTC)
+            if isinstance(slutt_tid, str)
+            else slutt_tid.astimezone(UTC)
+        )
 
     def overlapper(self, start_tid: datetime, slutt_tid: datetime) -> bool:
         return (

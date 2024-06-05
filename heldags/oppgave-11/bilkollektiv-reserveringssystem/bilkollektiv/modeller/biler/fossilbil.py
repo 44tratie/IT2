@@ -15,10 +15,11 @@ class Fossilbil(Bil):
         print(f"Du har brukt {bensin_forbruk} liter av bilens tank")
 
         if self.drivstoffmengde < bensin_forbruk:
-            print("Du fylte bilens tank ved kjøring")
-            self.drivstoffmengde += self.tank
-
-        self.drivstoffmengde -= bensin_forbruk
+            antall_fyllinger, rest = divmod(bensin_forbruk, self.tank)
+            print(f"Du fylte bilens tank {antall_fyllinger+1} gang(er) ved kjøring")
+            self.drivstoffmengde = self.tank - rest
+        else:
+            self.drivstoffmengde -= bensin_forbruk
 
         print(f"Bilen har {self.drivstoffmengde} liter bensin igjen")
 

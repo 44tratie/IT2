@@ -17,23 +17,28 @@ class Reserveringssystem:
             reservasjonsdata_json = json.load(reservasjonsdata_fil)
 
         # dict[id, Reservasjon]
-        self.reservasjoner: dict[int, Reservasjon] = reservasjonsdata_json[
-            "reservasjoner"
-        ]
+        self.reservasjoner: dict[int, Reservasjon] = {
+            int(reservasjons_id): Reservasjon(**reservasjon)
+            for reservasjons_id, reservasjon in reservasjonsdata_json[
+                "reservasjoner"
+            ].items()
+        }
         # dict[bil_registreringsnummer, reservasjoner]
         self.bil_reservasjoner: dict[str, dict[int, Reservasjon]] = defaultdict(dict)
-        self.bil_reservasjoner.update(reservasjonsdata_json["bil_reservasjoner"])
+        self.bil_reservasjoner.update(
+            {
+                reg_nr: {
+                    int(reservasjons_id): Reservasjon(**reservasjon)
+                    for reservasjons_id, reservasjon in reservasjoner.items()
+                }
+                for reg_nr, reservasjoner in reservasjonsdata_json[
+                    "bil_reservasjoner"
+                ].items()
+            }
+        )
 
         self.neste_reservasjon_id = (
-            (
-                max(
-                    self.reservasjoner,
-                    key=lambda k: self.reservasjoner[k].reservasjon_ID,
-                )
-                + 1
-            )
-            if self.reservasjoner
-            else 1
+            (max(map(int, self.reservasjoner.keys())) + 1) if self.reservasjoner else 1
         )
 
     def vis_ledige_biler(self, start_tid: datetime, slutt_tid: datetime) -> set[str]:

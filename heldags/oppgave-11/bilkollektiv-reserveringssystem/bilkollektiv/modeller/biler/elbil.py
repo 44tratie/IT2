@@ -15,10 +15,11 @@ class Elbil(Bil):
         print(f"Du har brukt {wattimer_forbruk} watt-timer av bilen")
 
         if self.energinivå < wattimer_forbruk:
-            print("Du fulladet bilen ved kjøring")
-            self.energinivå += self.batteri
-
-        self.energinivå -= wattimer_forbruk
+            antall_fulladinger, rest = divmod(wattimer_forbruk, self.batteri)
+            print(f"Du fulladet bilen {antall_fulladinger+1} gang(er) ved kjøring")
+            self.energinivå = self.batteri - rest
+        else:
+            self.energinivå -= wattimer_forbruk
 
         print(f"Bilen har {self.energinivå} watt-timer igjen")
 
