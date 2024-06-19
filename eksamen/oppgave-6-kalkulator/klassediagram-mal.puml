@@ -1,0 +1,12 @@
+@startuml Kalkulator
+
+class Kalkulator {
+    + MAKS_DESIMALER: int
+    --
+    + pluss: (float | int, float | int) -> float | int
+    + minus: (float | int, float | int) -> float | int
+    + gange: (float | int, float | int) -> float | int
+    + dele: (float | int, float | int) -> float | int
+}
+
+@enduml
