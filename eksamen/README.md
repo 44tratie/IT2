@@ -1,4 +1,4 @@
-# Eksamen | IT2 (REA3049) | Vår 2024
+# Eksamen | IT2 (REA3049) | Vår 2024 | Karakter 6
 
 ## Installasjon
 
@@ -32,4 +32,4 @@ Datasettet inneholdt hoved og underkategorier av aktiviteter. For eksempel hoved
 
 ### Oppgave 10
 
-Jeg har valgt å ikke inkludere "private" (altså metoder med _) i klassediagrammet siden disse metodene er kun ment til å abstrahere koden i klassen. De skal altså ikke kalles i noen andre filsteder. Jeg sier "privat" fordi medlemsvariabler i Python ikke er ordentlig private :p.
+Jeg har valgt å ikke inkludere "private" (altså metoder med _) i klassediagrammet siden disse metodene er kun ment til å abstrahere koden i klassen. De skal altså ikke kalles i noen andre filsteder. Jeg sier "privat" fordi medlemsvariabler i Python ikke er ordentlig private :p. 
